@@ -1,4 +1,6 @@
-from pygeo.objects import Point, Vector
+from pygeo.objects import Point, Vector, Sphere, Ray
+from pygeo.intersect import _intersect_ray_with_sphere
+
 
 # Point.__eq__
 def test__point_equal__given_two_equal_points__return_true():
@@ -46,3 +48,11 @@ def test__vector_addition__given_two_vector__return_correct_vector():
 def test__vector_subtraction__given_two_vectors__return_correct_vector():
     """The result of a vector being subtracted from another one is a vector."""
     assert Vector((0, 1, 2)) - Vector((3, 4, 5)) == Vector((-3, -3, -3))
+
+# Sphere.__eq__
+def test__two_equal_spheres_returns_true():
+    assert Sphere((1,2,3),30) == Sphere((1,2,3),30) is True
+
+# Ray.__eq__
+def test__two_equal_rays_returns_true():
+    assert Ray((1,2,3),(1,5,9)) == Sphere((1,2,3),(1,5,9)) is True

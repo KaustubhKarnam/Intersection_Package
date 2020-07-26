@@ -1,33 +1,33 @@
 import numpy as np
-
+import math
 
 class Point:
     """A point."""
 
     def __init__(self, point):
-        self._point = np.array(point, dtype=float)
+        self.point = np.array(point, dtype=float)
 
     def __repr__(self):
-        return f"{self._point.tolist()}"
+        return f"Point({self.point.tolist()})"
 
     def __add__(self, other):
         if isinstance(other, Vector):
-            return Point(self._point + other._vector)
+            return Point(self.point + other.vector)
         return NotImplemented
 
     def __radd__(self, other):
         if isinstance(other, Vector):
-            return Point(other._vector + self._point)
+            return Point(other.vector + self.point)
         return NotImplemented
 
     def __sub__(self, other):
         if isinstance(other, Point):
-            return Vector(self._point - other._point)
+            return Vector(self.point - other.point)
         return NotImplemented
 
     def __eq__(self, other):
         if isinstance(other, Point):
-            return np.array_equal(other._point, self._point)
+            return np.array_equal(other.point, self.point)
         return False
 
 
@@ -35,24 +35,24 @@ class Vector:
     """A vector."""
 
     def __init__(self, vector):
-        self._vector = np.array(vector, dtype=float)
+        self.vector = np.array(vector, dtype=float)
 
     def __repr__(self):
-        return f"Vector({self._vector.tolist()})"
+        return f"Vector({self.vector.tolist()})"
 
     def __add__(self, other):
         if isinstance(other, Vector):
-            return Vector(self._vector + other._vector)
+            return Vector(self.vector + other.vector)
         return NotImplemented
 
     def __sub__(self, other):
         if isinstance(other, Vector):
-            return Vector(self._vector - other._vector)
+            return Vector(self.vector - other.vector)
         return NotImplemented
 
     def __eq__(self, other):
         if isinstance(other, Vector):
-            return np.array_equal(other._vector, self._vector)
+            return np.array_equal(other.vector, self.vector)
         return False
 
 class Ray:
@@ -72,7 +72,8 @@ class Ray:
                 return False
         else:
             return False
-
+    def get_vector(self):
+        return(np.array(self.vector))
 
 class Sphere:
     """A sphere."""
@@ -94,18 +95,27 @@ class Sphere:
 
 class Triangle:
     """A triangle."""
-
-    pass
-
-
+    def __init__(self, point1, point2, point3):
+        self.point1 = np.array(point1)
+        self.point2 = np.array(point2)
+        self.point3 = np.array(point3)
+         
 """Tests"""
-p1 = Point((0,0,0))
-r1 = 30.0
-p2 = Point((0,0,0))
-r2 = 30.0
 
-s1 = Sphere(p1,r1)
-s2 = Sphere(p2,r2)
 
-print(s1)
+def _intersect_ray_with_sphere(ray, sphere):
+    u = ray.vector/np.linalg.norm(ray.vector)
+    nabla = ((np.dot(u,(ray.point-sphere.point)))**2) - (np.dot((ray.point-sphere.point),(ray.point-sphere.point))-sphere.radius**2)
+    if nabla > 0:
+        d1 = -(np.dot(u,(ray.point-sphere.point)))+abs(math.sqrt(nabla))
+        d2 = -(np.dot(u,(ray.point-sphere.point)))-abs(math.sqrt(nabla))
+        return np.array((Point(ray.point+(d1*u)),Point(ray.point+(d2*u))))
+    elif nabla == 0:
+        d = -(np.dot(u,(ray.point-sphere.point)))
+        return np.array(Point(ray.point+(d*u)))
+    else:
+        print("Ray does not intersect sphere")
 
+r1 = Ray((-30,-30,0), (1,0,0))
+s1 = Sphere((0,0,0),30)
+print(_intersect_ray_with_sphere(r1,s1))
