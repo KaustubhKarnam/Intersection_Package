@@ -1,8 +1,9 @@
 from .objects import Point, Vector, Ray, Sphere, Triangle
 import numpy as np
 import math
-# def intersect(first_object, second_object):
-#     ...
+
+def intersect(first_object, second_object):
+    ...
 
 
 def _intersect_ray_with_sphere(ray, sphere):
@@ -21,5 +22,6 @@ def _intersect_ray_with_sphere(ray, sphere):
 r1 = Ray((-30,-30,0), (1,0,0))
 s1 = Sphere((0,0,0),30)
 print(_intersect_ray_with_sphere(r1,s1))
-# def _intersect_ray_with_triangle(ray, triangle):
-#     ...
+
+def _intersect_ray_with_triangle(ray, triangle):
+    ...

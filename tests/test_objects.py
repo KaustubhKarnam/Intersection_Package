@@ -51,8 +51,8 @@ def test__vector_subtraction__given_two_vectors__return_correct_vector():
 
 # Sphere.__eq__
 def test__two_equal_spheres_returns_true():
-    assert Sphere((1,2,3),30) == Sphere((1,2,3),30) is True
+    assert (Sphere((1,2,3),30) == Sphere((1,2,3),30)) is True
 
 # Ray.__eq__
 def test__two_equal_rays_returns_true():
-    assert Ray((1,2,3),(1,5,9)) == Sphere((1,2,3),(1,5,9)) is True
+    assert (Ray((1,2,3),(1,5,9)) == Ray((1,2,3),(1,5,9))) is True
