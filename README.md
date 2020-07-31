@@ -46,3 +46,10 @@ As an optional extra exercise, implement
 1. the missing `Triangle` class,
 1. the missing `_intersect_ray_and_triangle` function and accompanying tests, and
 1. the missing `intersect` that calls either `_intersect_ray_and_sphere` or `_intersect_ray_and_triangle` depending on the arguments.
+
+Solution Update
+-----
+
+1. `Ray` class, `Sphere` class and `_intersect_ray_and_sphere` function added.
+1. Tests implemented to check the function
+1. `Triangle` class added 
